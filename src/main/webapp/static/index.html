@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Vue.js v2.0 - CRUD application for User Management</title>
+
+
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css'>
+  <link rel="stylesheet" href="src/css/style.css">
+
+  
+</head>
+
+<body>
+<div class="container">
+  <header class="page-header">
+    <div class="branding">
+      <img src="https://vuejs.org/images/logo.png" alt="Logo" title="Home page" class="logo"/>
+      <h1>Vue.js v2 CRUD : User Management Admin</h1>
+    </div>
+  </header>
+  <main id="app"></main>
+</div>
+
+<template id="user-list">
+  <section>
+  <div class="actions">
+    <router-link class="btn btn-default" :to="{path: '/add-user'}">
+      <span class="glyphicon glyphicon-plus"></span>
+      Add user
+    </router-link>
+  </div>
+  <div class="filters row">
+    <div class="form-group col-sm-6">
+      <label for="search-element">User name</label>
+      <input v-model="searchKey" class="form-control" id="search-element" requred/>
+      <p class="text-danger">{{ message }}</p>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ACF2 Name</th>
+      <th>Full Name</th>
+      <th>Role</th>
+      <th>Cost Centre</th>
+      <th>Policy ID</th>
+      <th class="col-sm-2">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="user in filteredUsers">
+      <td>
+        <router-link :to="{name: 'user', params: {user_name: user.name}}">{{ user.name }}</router-link>
+      </td>
+      <td>{{ user.fullName }}</td>
+      <td>{{ user.role }}</td>
+      <td>{{ user.costCentre }}</td>
+      <td>{{ user.policyIds }}</td>
+      <td>
+        <router-link class="btn btn-warning btn-xs" :to="{name: 'user-edit', params: {user_name: user.name}}">Edit</router-link>
+        <router-link class="btn btn-danger btn-xs" :to="{name: 'user-delete', params: {user_name: user.name}}">Delete</router-link>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  </section>
+</template>
+
+<template id="add-user">
+    <section>
+  <h2>Add new user</h2>
+  <form v-on:submit="createUser">
+    <div class="form-group">
+      <label for="add-name">ACF2 Name</label>
+      <input class="form-control" id="add-name" v-model="user.name" required/>
+    </div>
+    <div class="form-group">
+      <label for="add-fullName">Full Name</label>
+      <input class="form-control" id="add-fullName" v-model="user.fullName"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="add-role">Role</label>
+      <select id="add-role" v-model="user.role" required>
+          <option v-for="role in roles">{{ role }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="add-cc">Cost Centre</label>
+      <select id="add-cc" v-model="user.costCentre">
+          <option v-for="costCentre in costCentres">{{ costCentre }}</option>
+      </select>
+    </div>
+    <div class="form-group" v-if="user.role === 'gcm-fo'">
+      <label for="add-policyIds">Policy ID</label>
+      <li v-for="policyId in globalPolicyIds" style="list-style-type:none" >
+        <input type="checkbox" :value="policyId" id="add-policyIds" v-model="user.policyIds" > {{policyId}}
+      </li>
+      <br>
+          <span>Checked names: {{ user.policyIds }}</span>
+    </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <router-link to="'/'" class="btn btn-default">Cancel</router-link>
+  </form>
+</section>
+</template>
+
+<template id="user">
+    <section>
+  <h2>{{ user.name }}</h2>
+  <b>Full Name: </b>
+  <div>{{ user.fullName }}</div>
+  <b>Role:</b>
+  <div>{{ user.role }}</div>
+  <b>Cost Centre:</b>
+  <div>{{ user.costCentre }}</div>
+  <b>Policy ID:</b>
+  <div>{{ user.policyIds }}</div>
+  <br/>
+  <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+  <router-link to="'/'">Back to user list</router-link>
+</section>
+</template>
+
+<template id="user-edit">
+    <section>
+  <h2>Edit user</h2>
+  <form v-on:submit="updateUser">
+    <div class="form-group">
+      <label for="edit-name">ACF2 Name</label>
+      <input class="form-control" id="edit-name" v-model="user.name" required/>
+    </div>
+    <div class="form-group">
+      <label for="edit-fullName">Full Name</label>
+      <input class="form-control" id="edit-fullName" v-model="user.fullName"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="edit-role">Role</label>
+      <select id="eidt-role" v-model="user.role">
+          <option v-for="role in roles">{{ role }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="edit-cc">Cost Centre</label>
+      <select id="edit-cc" v-model="user.costCentre">
+          <option v-for="costCentre in costCentres">{{ costCentre }}</option>
+      </select>
+    </div>
+    <div class="form-group"  v-if="user.role === 'gcm-fo'">
+      <label for="edit-policyIds">Policy ID:</label>
+
+      <li v-for="policyId in globalPolicyIds" style="list-style-type:none" >
+        <input type="checkbox" :value="policyId" id="edit-policyIds" v-model="user.policyIds" > {{policyId}}
+      </li>
+      <br>
+          <span>Checked names: {{ user.policyIds }}</span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <router-link to="'/'" class="btn btn-default">Cancel</router-link>
+  </form>
+</section>
+</template>
+
+<template id="user-delete">
+    <section>
+  <h2>Delete user {{ user.name }}</h2>
+  <form v-on:submit="deleteUser">
+    <p>The action cannot be undone.</p>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <router-link to="'/'" class="btn btn-default">Cancel</router-link>
+  </form>
+</section>
+</template>
+
+
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src='node_modules/vue-router/dist/vue-router.js'></script>
+<script src="src/js/index.js"></script>
+</body>
+</html>

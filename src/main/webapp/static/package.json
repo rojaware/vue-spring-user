@@ -1,0 +1,22 @@
+{
+  "name": "vue-v2-crud-application",
+  "version": "0.1.0",
+  "description": "Original Sample from vue.js v1 (http://codepen.io/-a/pen/amOYGp) to v2 (http://codepen.io/shershen08/pen/xROOxw)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Scott Lee",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "lodash": "^4.16.6",
+    "vue": "^2.4.4",
+    "vue-multiselect": "^2.0.3",
+    "vue-router": "^2.0.0",
+    "vue-server-renderer": "^2.0.5"
+  },
+  "devDependencies": {
+    "vue-migration-helper": "^1.1.1"
+  }
+}
