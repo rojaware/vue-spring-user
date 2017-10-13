@@ -1,17 +1,10 @@
-// import Multiselect from 'vue-multiselect'
 
-var users = [
-            {  name: "John", fullName: "John Doe", role: "gcm-user" , costCentre: "3311", policyIds: ["CA"] },
-            {  name: "Jane", fullName: "Jane Hello", role: "gcm-admin" , costCentre: "3311", policyIds: ["CA"] },
-            {  name: "Susan", fullName: "Susan Kim", role: "gcm-fo" , costCentre: "3311", policyIds: ["CA"] },
-            {  name: "Chris", fullName: "Chris Cho", role: "petr-it-admin" , costCentre: "3311", policyIds: ["CA"] },
-            {  name: "Dan", fullName: "Dan Paddock", role: "petr-it-security" , costCentre: "3311", policyIds: ["CA"] }
-        ];
+var users = [];
+
 const roles = ['Choose', 'gcm-user', 'gcm-admin', 'petr-it-security', 'petr-it-admin', 'gcm-fo'];
 const costCentres = ["Choose","3311", "1234", "1122"];  
 const globalPolicyIds = ["N/A", "CA", "US","UK","SG", "IE","JP","HK"];  
-const baseUrl = "https://http://localhost:8080/vue-spring-user/static/";
-const ApiKey = "your_api_key";
+const baseUrl = "http://localhost:8080/vue-spring-user";
 
 var message = 'You loaded this page on ' + new Date().toLocaleString() ;
 
@@ -31,16 +24,16 @@ function findUserKey (name) {
 var List = Vue.extend({
   template: '#user-list',
   data: function () {
-	  axios.get( baseUrl + '/' )
-	  .then(function(response){
-		  users = response.data.users;
-		  searchKey = '';
-		  message = message;
-	    console.log(response.data); // ex.: { user: 'Your User'}
-	    console.log(response.status); // ex.: 200
-	  }); 
-	  return;
-//    return {users: users, searchKey: '', message: message};
+       axios.get(baseUrl+'/user/')
+       .then( (response) => {
+           console.log(response.data);
+           this.users = response.data;
+        })
+        .catch((error) => {
+            List.message = 'An Error occurred. ' + error;
+            console.log(error);
+        });
+    return {users: users, searchKey: '', message: message};
   },
   computed : {
     filteredUsers: function () {
@@ -142,6 +135,5 @@ var router = new VueRouter({
 new Vue({
   el: '#app',
   router: router,
-  template: '<router-view></router-view>', 
-  
+  template: '<router-view></router-view>'
 });

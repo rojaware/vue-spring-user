@@ -1,5 +1,5 @@
 # vue-spring-user
-User Management Server side code done by Spring 4 REST CRUD.
+VueJS frontend has been integrated with User Management Server side code done by Spring 4 REST CRUD.
 
 # Who needs this application
 VueJS frontend ( [vue.js-v2-crud-application](https://github.com/rojaware/vue.js-v2-crud-application) ) will consume this web services
