@@ -43,15 +43,18 @@ Currently, this application provides:
  - run `npm install`
  - run 'npm install axios' (If you want CDN access, <script src="https://unpkg.com/axios/dist/axios.min.js"></script> in your index.html. you can skip)
 
-### Test 
- - run http server of your choice (eg [whs](https://github.com/gstack/watch-http-server) or [SimpleHTTPServer](https://docs.python.org/2/library/simplehttpserver.html))
+### Test on Tomcat
+ - Deploy vue-spring-user.war to your tomcat server (ex, Eclipse with Tomcat)
+ - Start your tomcat server
+ - From browser, enter [http://localhost:8080/vue-spring-user/static](http://localhost:8080/vue-spring-user/static) 
 
 ### Run on Local Directory
 
-* Clone the repo into your local directory
-* Open Window Explorer and click 'index.html'
+- Deploy vue-spring-user.war to your tomcat server (ex, Eclipse with Tomcat)
+- Start your tomcat server
+- Open Window Explorer and click 'index.html' under vue-spring-user webapp/static directory
 
-So simple...
+
 
 ### Run on Simple HTTP Server
 
@@ -63,13 +66,6 @@ npm install -g http-server
 http-server .
 That allows you to test your build files locally.
 
-### Multi Select
-One of input is multiple selection. You can install it from npm 
-npm install vue-multiselect --save
-Or
-include CDN
-<script src="https://unpkg.com/vue-multiselect@2.0.0"></script>
-<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.0.0/dist/vue-multiselect.min.css">
 
 ### Merge from master to origin
 
