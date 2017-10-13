@@ -1,9 +1,12 @@
-# Spring4RestCrud
+# vue-spring-user
 User Management Server side code done by Spring 4 REST CRUD.
+
 # Who needs this application
 VueJS frontend ( [vue.js-v2-crud-application](https://github.com/rojaware/vue.js-v2-crud-application) ) will consume this web services
+
 # Environment
-JDK1.8, Eclipse Oxyzon
+JDK1.8, Eclipse Oxyzon, Vue.js v2.0
+
 # Fix
 
 
