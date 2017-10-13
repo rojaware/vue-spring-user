@@ -1,8 +1,14 @@
 # vue-spring-user
-VueJS frontend has been integrated with User Management Server side code done by Spring 4 REST CRUD.
+- Integrated Spring Java CRUD
+- VueJS frontend has been integrated with User Management Server side code done by Spring 4 REST CRUD.
+
+# Previous milestone application
+
+- Frontend only : VueJS frontend ( [vue.js-v2-crud-application](https://github.com/rojaware/vue.js-v2-crud-application) )
+- Backend only : Server Side Java Application  [Spring4RestCrud](https://github.com/rojaware/Spring4RestCrud)
 
 # Who needs this application
-VueJS frontend ( [vue.js-v2-crud-application](https://github.com/rojaware/vue.js-v2-crud-application) ) will consume this web services
+ To replace the legacy Javascript frontend with VueJS comsuming existing Java based server application
 
 # Environment
 JDK1.8, Eclipse Oxyzon, Vue.js v2.0
@@ -26,8 +32,8 @@ Currently, this application provides:
 - Search filter by text input
 
 ### TODO
-- Server Side Java Application is ready on [Spring4RestCrud](https://github.com/rojaware/Spring4RestCrud)
-- Integrated Spring Java CRUD
+
+- Add JDBC connection
 - Add Report
 - Add Navigation Bar
 
